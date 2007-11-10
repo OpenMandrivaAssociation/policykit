@@ -18,12 +18,12 @@
 
 Summary: Toolkit for privilege control
 Name: policykit
-Version: 0.5
-Release: %mkrel 2
+Version: 0.6
+Release: %mkrel 1
 License: AFL/GPL
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
-Source0: http://hal.freedesktop.org/releases/PolicyKit-0.5.tar.gz
+Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
 Provides: PolicyKit = %{version}-%{release}

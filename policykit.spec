@@ -19,7 +19,7 @@
 Summary: Toolkit for privilege control
 Name: policykit
 Version: 0.6
-Release: %mkrel 1
+Release: %mkrel 2
 License: AFL/GPL
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html

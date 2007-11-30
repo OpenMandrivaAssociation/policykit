@@ -9,7 +9,6 @@
 %define dbus_glib_version	0.70
 %define gtk_doc_version         1.4
 %define consolekit_version      0.2.1
-%define libselinux_version      1.30
 %define pam_version             0.99.6
 
 # uid/gid allocated in this bug:
@@ -19,7 +18,7 @@
 Summary: Toolkit for privilege control
 Name: policykit
 Version: 0.6
-Release: %mkrel 2
+Release: %mkrel 3
 License: AFL/GPL
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
@@ -34,7 +33,6 @@ BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: dbus-devel  >= %{dbus_version}
 BuildRequires: dbus-glib-devel >= %{dbus_glib_version}
 BuildRequires: gtk-doc >= %{gtk_doc_version}
-BuildRequires: selinux-devel >= %{libselinux_version}
 BuildRequires: xmlto
 BuildRequires: pam-devel >= %{pam_version}
 
@@ -49,7 +47,6 @@ Requires: dbus >= %{dbus_version}
 Requires: dbus-glib >= %{dbus_glib_version}
 Requires: glib2 >= %{glib2_version}
 Requires: ConsoleKit >= %{consolekit_version}
-Requires: selinux >= %{libselinux_version}
 Requires: pam >= %{pam_version}
 Requires: %{name} = %{version}-%{release}
 
@@ -83,7 +80,7 @@ Documentation for PolicyKit.
 %setup -q -n PolicyKit-%{version}
 
 %build
-%{configure2_5x} --docdir=%{_docdir}/%{name} --enable-docbook-docs --disable-man-pages
+%{configure2_5x} --docdir=%{_docdir}/%{name} --enable-docbook-docs --disable-man-pages --disable-selinux
 %{make}
 
 %install

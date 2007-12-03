@@ -18,7 +18,7 @@
 Summary: Toolkit for privilege control
 Name: policykit
 Version: 0.6
-Release: %mkrel 3
+Release: %mkrel 4
 License: AFL/GPL
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
@@ -61,7 +61,7 @@ Requires: %{libname} = %{version}-%{release}
 Requires: pkgconfig
 Requires: glib2-devel
 Requires: dbus-devel
-Provides: pokit-devel = %{version}-%{release}
+Provides: polkit-devel = %{version}-%{release}
 
 %description -n %{libnamedevel}
 Headers and libraries for PolicyKit.

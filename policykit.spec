@@ -1,4 +1,5 @@
-%define libname %mklibname polkit 2
+%define lib_major 2
+%define libname %mklibname polkit %{lib_major}
 %define libnamedevel %mklibname polkit -d
 
 %define _localstatedir %{_var}
@@ -15,11 +16,11 @@
 # https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=244950
 %define polkit_uid              87
 
-Summary: Toolkit for privilege control
+Summary: Authorization Toolkit
 Name: policykit
-Version: 0.6
-Release: %mkrel 4
-License: AFL/GPL
+Version: 0.7
+Release: %mkrel 1
+License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
@@ -37,11 +38,12 @@ BuildRequires: xmlto
 BuildRequires: pam-devel >= %{pam_version}
 
 %description
-PolicyKit is a toolkit for defining and handling the policy that
-allows unprivileged processes to speak to privileged processes.
+PolicyKit is a toolkit for defining and handling authorizations.
+It is used to allows unprivileged processes to speak to 
+privileged processes.
 
 %package -n %{libname}
-Summary: Toolkit for privilege control
+Summary: Authorization Toolkit
 Group: System/Libraries
 Requires: dbus >= %{dbus_version}
 Requires: dbus-glib >= %{dbus_glib_version}
@@ -51,8 +53,9 @@ Requires: pam >= %{pam_version}
 Requires: %{name} = %{version}-%{release}
 
 %description -n %{libname}
-PolicyKit is a toolkit for defining and handling the policy that
-allows unprivileged processes to speak to privileged processes.
+PolicyKit is a toolkit for defining and handling authorizations.
+It is used to allows unprivileged processes to speak to 
+privileged processes.
 
 %package -n %{libnamedevel}
 Summary: Headers and libraries for PolicyKit
@@ -80,12 +83,12 @@ Documentation for PolicyKit.
 %setup -q -n PolicyKit-%{version}
 
 %build
-%{configure2_5x} --docdir=%{_docdir}/%{name} --enable-docbook-docs --disable-man-pages --disable-selinux
-%{make}
+%configure2_5x --disable-selinux
+%make
 
 %install
 rm -rf %{buildroot}
-%{makeinstall_std}
+%makeinstall_std profiledir=%{_sysconfdir}/bash_completion.d
 
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_libdir}/*.a
@@ -111,51 +114,48 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/pam.d/polkit
 %dir %{_sysconfdir}/PolicyKit
 %config(noreplace) %{_sysconfdir}/PolicyKit/PolicyKit.conf
+%config(noreplace) %{_sysconfdir}/dbus-1/system.d/org.freedesktop.PolicyKit.conf
+%{_sysconfdir}/bash_completion.d/polkit-bash-completion.sh
 
 %{_bindir}/*
-#%{_libexecdir}/*
+%{_libexecdir}/polkitd
 
-
-#%{_mandir}/man1/*
-#%{_mandir}/man5/*
-#%{_mandir}/man8/*
+%{_mandir}/man1/*
+%{_mandir}/man5/*
+%{_mandir}/man8/*
 
 # see upstream design specification for why these permissions are necessary
+%attr(2755,root,polkituser) %{_libexecdir}/polkit-set-default-helper
+%attr(2755,root,polkituser) %{_libexecdir}/polkit-read-auth-helper
+%attr(2755,root,polkituser) %{_libexecdir}/polkit-revoke-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-grant-helper
+%attr(2755,root,polkituser) %{_libexecdir}/polkit-explicit-grant-helper
+
 %attr(4755,root,root) %{_libexecdir}/polkit-grant-helper-pam
-%attr(0775,polkituser,polkituser) %dir %{_localstatedir}/run/PolicyKit
-%attr(0775,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit
-#%attr(0644,root,root) %{_localstatedir}/lib/PolicyKit/reload
+%attr(0770,polkituser,polkituser) %dir %{_localstatedir}/run/PolicyKit
+%attr(0775,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit-public
+%attr(0770,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit
+%attr(0775,root,polkituser) %{_localstatedir}/lib/misc/PolicyKit.reload
 
 %dir %{_datadir}/PolicyKit
 %dir %{_datadir}/PolicyKit/policy
 %{_datadir}/PolicyKit/config.dtd
+%{_datadir}/PolicyKit/policy/org.freedesktop.policykit.policy
+
+%{_datadir}/dbus-1/system-services/org.freedesktop.PolicyKit.service
+%{_datadir}/dbus-1/interfaces/org.freedesktop.PolicyKit.AuthenticationAgent.xml
 
 %files -n %{libname}
 %defattr(-,root,root,-)
-
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*.so.%{lib_major}*
 
 %files -n %{libnamedevel}
 %defattr(-,root,root,-)
-
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*
 %{_includedir}/*
 
 %files docs
 %defattr(-,root,root,-)
+%{_datadir}/gtk-doc/html/polkit
 
-#%doc %dir %{_docdir}/%{name}/spec
-#%doc %{_docdir}/%{name}/spec/*
-
-%dir %{_datadir}/gtk-doc/html/polkit
-%{_datadir}/gtk-doc/html/polkit/*
-
-#%dir %{_datadir}/gtk-doc/html/polkit-dbus
-#%{_datadir}/gtk-doc/html/polkit-dbus/*
-
-#%dir %{_datadir}/gtk-doc/html/polkit-grant
-#%{_datadir}/gtk-doc/html/polkit-grant/*
-
-%changelog

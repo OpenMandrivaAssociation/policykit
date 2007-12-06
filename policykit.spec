@@ -36,6 +36,7 @@ BuildRequires: dbus-glib-devel >= %{dbus_glib_version}
 BuildRequires: gtk-doc >= %{gtk_doc_version}
 BuildRequires: xmlto
 BuildRequires: pam-devel >= %{pam_version}
+BuildRequires: perl-XML-Parser
 
 %description
 PolicyKit is a toolkit for defining and handling authorizations.

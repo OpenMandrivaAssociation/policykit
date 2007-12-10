@@ -19,11 +19,12 @@
 Summary: Authorization Toolkit
 Name: policykit
 Version: 0.7
-Release: %mkrel 1
+Release: %mkrel 2
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
+Patch0: PolicyKit-0.7-xfs.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
 Provides: PolicyKit = %{version}-%{release}
@@ -82,6 +83,7 @@ Documentation for PolicyKit.
 
 %prep
 %setup -q -n PolicyKit-%{version}
+%patch0 -p0 -b .xfs
 
 %build
 %configure2_5x --disable-selinux

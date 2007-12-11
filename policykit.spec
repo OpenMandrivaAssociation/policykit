@@ -19,11 +19,12 @@
 Summary: Authorization Toolkit
 Name: policykit
 Version: 0.7
-Release: %mkrel 2
+Release: %mkrel 3
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
+# (cg) 0.7-2mdv fix policy file load on XFS (Mdv bug #36043) (fd.o bug #13599)
 Patch0: PolicyKit-0.7-xfs.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
@@ -134,7 +135,7 @@ rm -rf %{buildroot}
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-grant-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-explicit-grant-helper
 
-%attr(4755,root,root) %{_libexecdir}/polkit-grant-helper-pam
+%attr(4750,root,polkituser) %{_libexecdir}/polkit-grant-helper-pam
 %attr(0770,polkituser,polkituser) %dir %{_localstatedir}/run/PolicyKit
 %attr(0775,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit-public
 %attr(0770,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit

@@ -19,7 +19,7 @@
 Summary: Authorization Toolkit
 Name: policykit
 Version: 0.7
-Release: %mkrel 3
+Release: %mkrel 4
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
@@ -97,6 +97,11 @@ rm -rf %{buildroot}
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_libdir}/*.a
 
+# standard completion file name
+mv %{buildroot}%{_sysconfdir}/bash_completion.d/polkit-bash-completion.sh \
+   %{buildroot}%{_sysconfdir}/bash_completion.d/%{name}
+chmod 644 %{buildroot}%{_sysconfdir}/bash_completion.d/%{name}
+
 %clean
 rm -rf %{buildroot}
 
@@ -119,7 +124,7 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/PolicyKit
 %config(noreplace) %{_sysconfdir}/PolicyKit/PolicyKit.conf
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/org.freedesktop.PolicyKit.conf
-%{_sysconfdir}/bash_completion.d/polkit-bash-completion.sh
+%{_sysconfdir}/bash_completion.d/%{name}
 
 %{_bindir}/*
 %{_libexecdir}/polkitd

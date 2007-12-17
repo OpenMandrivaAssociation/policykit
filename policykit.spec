@@ -26,7 +26,6 @@ URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
 # (cg) 0.7-2mdv fix policy file load on XFS (Mdv bug #36043) (fd.o bug #13599)
 Patch0: PolicyKit-0.7-xfs.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
 Provides: PolicyKit = %{version}-%{release}
 Requires(pre): rpm-helper

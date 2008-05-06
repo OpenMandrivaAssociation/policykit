@@ -18,15 +18,12 @@
 
 Summary: Authorization Toolkit
 Name: policykit
-Version: 0.7
-Release: %mkrel 5
+Version: 0.8
+Release: %mkrel 1
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
-# (cg) 0.7-5mdv Upstream fix for (Mdv bug #36043) (fd.o bug #13599)
-# http://gitweb.freedesktop.org/?p=PolicyKit.git;a=commitdiff;h=0b59d3e7d4b282da308b362dc440b007b9ecedbf
-Patch0: PolicyKit-0.7-d_type-readdir.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
 Provides: PolicyKit = %{version}-%{release}
@@ -85,7 +82,6 @@ Documentation for PolicyKit.
 
 %prep
 %setup -q -n PolicyKit-%{version}
-%patch0 -p1 -b .dtype
 
 %build
 %configure2_5x --disable-selinux
@@ -129,6 +125,7 @@ rm -rf %{buildroot}
 
 %{_bindir}/*
 %{_libexecdir}/polkitd
+%{_libexecdir}/polkit-resolve-exe-helper
 
 %{_mandir}/man1/*
 %{_mandir}/man5/*

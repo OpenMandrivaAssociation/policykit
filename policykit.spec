@@ -37,6 +37,7 @@ BuildRequires: gtk-doc >= %{gtk_doc_version}
 BuildRequires: xmlto
 BuildRequires: pam-devel >= %{pam_version}
 BuildRequires: perl-XML-Parser
+BuildRequires: intltool
 
 %description
 PolicyKit is a toolkit for defining and handling authorizations.

@@ -18,7 +18,7 @@
 
 Summary: Authorization Toolkit
 Name: policykit
-Version: 0.8
+Version: 0.9
 Release: %mkrel 2
 License: MIT
 Group: System/Libraries
@@ -85,7 +85,9 @@ Documentation for PolicyKit.
 
 %build
 %configure2_5x --disable-selinux
-%make
+
+#parallel build is broken
+make
 
 %install
 rm -rf %{buildroot}
@@ -134,7 +136,7 @@ rm -rf %{buildroot}
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 
-# see upstream design specification for why these permissions are necessary
+# see README file for why these permissions are necessary
 %attr(4755,polkituser,root) %{_libexecdir}/polkit-set-default-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-read-auth-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-revoke-helper
@@ -142,10 +144,10 @@ rm -rf %{buildroot}
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-explicit-grant-helper
 %attr(4754,root,polkituser) %{_libexecdir}/polkit-grant-helper-pam
 %attr(4755,root,polkituser) %{_libexecdir}/polkit-resolve-exe-helper
-%attr(0770,polkituser,polkituser) %dir %{_localstatedir}/run/PolicyKit
-%attr(0755,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit-public
-%attr(0770,polkituser,polkituser) %dir %{_localstatedir}/lib/PolicyKit
-%attr(0775,polkituser,polkituser) %{_localstatedir}/lib/misc/PolicyKit.reload
+%attr(0770,root,polkituser) %dir %{_localstatedir}/run/PolicyKit
+%attr(0770,root,polkituser) %dir %{_localstatedir}/lib/PolicyKit
+%attr(0755,polkituser,root) %dir %{_localstatedir}/lib/PolicyKit-public
+%attr(0644,polkituser,polkituser) %{_localstatedir}/lib/misc/PolicyKit.reload
 
 %dir %{_datadir}/PolicyKit
 %dir %{_datadir}/PolicyKit/policy

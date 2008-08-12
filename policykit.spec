@@ -19,11 +19,13 @@
 Summary: Authorization Toolkit
 Name: policykit
 Version: 0.9
-Release: %mkrel 2
+Release: %mkrel 3
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
+# (fc) 0.9-3mdv adapt to ConsoleKit 0.3 API (Fedora)
+Patch0: pk-ck-api-change.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
 Provides: PolicyKit = %{version}-%{release}
@@ -83,6 +85,8 @@ Documentation for PolicyKit.
 
 %prep
 %setup -q -n PolicyKit-%{version}
+%patch0 -p1 -b .ck03
+
 
 %build
 %configure2_5x --disable-selinux

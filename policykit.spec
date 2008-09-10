@@ -145,14 +145,14 @@ rm -rf %{buildroot}
 %attr(4755,polkituser,root) %{_libexecdir}/polkit-set-default-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-read-auth-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-revoke-helper
-%attr(2755,root,polkituser) %{_libexecdir}/polkit-grant-helper
 %attr(2755,root,polkituser) %{_libexecdir}/polkit-explicit-grant-helper
+%attr(2755,root,polkituser) %{_libexecdir}/polkit-grant-helper
 %attr(4754,root,polkituser) %{_libexecdir}/polkit-grant-helper-pam
 %attr(4755,root,polkituser) %{_libexecdir}/polkit-resolve-exe-helper
 %attr(0770,root,polkituser) %dir %{_localstatedir}/run/PolicyKit
 %attr(0770,root,polkituser) %dir %{_localstatedir}/lib/PolicyKit
 %attr(0755,polkituser,root) %dir %{_localstatedir}/lib/PolicyKit-public
-%attr(0644,polkituser,polkituser) %{_localstatedir}/lib/misc/PolicyKit.reload
+%attr(0664,polkituser,polkituser) %{_localstatedir}/lib/misc/PolicyKit.reload
 
 %dir %{_datadir}/PolicyKit
 %dir %{_datadir}/PolicyKit/policy

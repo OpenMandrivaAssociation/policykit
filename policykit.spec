@@ -19,7 +19,7 @@
 Summary: Authorization Toolkit
 Name: policykit
 Version: 0.9
-Release: %mkrel 4
+Release: %mkrel 5
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html

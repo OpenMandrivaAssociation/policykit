@@ -19,13 +19,17 @@
 Summary: Authorization Toolkit
 Name: policykit
 Version: 0.9
-Release: %mkrel 5
+Release: %mkrel 6
 License: MIT
 Group: System/Libraries
 URL: http://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
 # (fc) 0.9-3mdv adapt to ConsoleKit 0.3 API (Fedora)
 Patch0: pk-ck-api-change.patch
+# (fc) fix memleak (Fedora)
+Patch1: entry-leak.patch
+# (fc) fix default D-Bus policy (fdo bug #18948)
+Patch2: polkit-0.8-dbus-policy.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Obsoletes: PolicyKit < %{version}-%{release}
 Provides: PolicyKit = %{version}-%{release}
@@ -86,7 +90,8 @@ Documentation for PolicyKit.
 %prep
 %setup -q -n PolicyKit-%{version}
 %patch0 -p1 -b .ck03
-
+%patch1 -p1 -b .entry-leak
+%patch2 -p1 -b .policy-fix
 
 %build
 %configure2_5x --disable-selinux

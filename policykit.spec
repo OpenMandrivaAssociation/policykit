@@ -22,7 +22,7 @@ Version: 0.9
 Release: %mkrel 10
 License: MIT
 Group: System/Libraries
-URL: http://people.freedesktop.org/~david/polkit-spec.html
+URL: https://people.freedesktop.org/~david/polkit-spec.html
 Source0: http://hal.freedesktop.org/releases/PolicyKit-%{version}.tar.gz
 # (fc) 0.9-3mdv adapt to ConsoleKit 0.3 API (Fedora)
 Patch0: pk-ck-api-change.patch
